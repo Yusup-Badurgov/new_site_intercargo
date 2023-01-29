@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Personal Item Shipping Calculator</title>
+  </head>
+  <body>
+    <form method="post" action="/">
+      <label for="country">Select country:</label>
+      <select name="country" id="country">
+        {% for country in countries %}
+          <option value="{{ country }}" {% if request.form.country == country %}selected{% endif %}>{{ country }}</option>
+        {% endfor %}
+      </select>
+      <br>
+      <label for="direction">Select direction:</label>
+      <select name="direction" id="direction">
+        <option value="import" {% if request.form.direction == 'import' %}selected{% endif %}>Import</option>
+        <option value="export" {% if request.form.direction == 'export' %}selected{% endif %}>Export</option>
+      </select>
+      <br>
+      <label for="cubes">Enter number of cubes:</label>
+      <input type="number" name="cubes" id="cubes" value="{{ request.form.cubes }}" min="1">
+      <br>
+      <input type="submit" value="Calculate">
+    </form>
+    {% if shipping_cost %}
+      <p>{{ shipping_cost }}</p>
+    {% endif %}
+  </body>
+</html>

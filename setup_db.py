@@ -1,1 +1,0 @@
-database_1 = 'price_personal_items.db'
