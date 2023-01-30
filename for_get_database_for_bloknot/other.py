@@ -8,7 +8,7 @@ for i in data_list:
 
 for i in new_data_list:
     a = i.split(' ')
-    if len(a) != 6:
+    if len(a) != 5:
         print(i)
 
 # for i in new_data_list:

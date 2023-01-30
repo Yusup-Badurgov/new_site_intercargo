@@ -1,11 +1,138 @@
+<!DOCTYPE html>
 <html>
   <head>
-    <title>InterCargoCalculate</title>
+    <title>Calculation of Car Transportation</title>
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon-16x16.png') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      h1 {
+        text-align: center;
+      }
+      a {
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+      }
+      a {
+        font-size: 16px;
+        color: #4CAF50;
+        text-decoration: none;
+      }
+      a:hover {
+        color: #3e8e41;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        padding: 30px;
+      }
+      form {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px #ccc;
+      }
+
+      label, select, input[type="submit"] {
+        display: block;
+        margin-bottom: 10px;
+      }
+      label {
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+      select, input[type="number"] {
+        width: 100%;
+        padding: 10px;
+        font-size: 20px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+      }
+      input[type="submit"] {
+        background-color: #4CAF50;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      input[type="submit"]:hover {
+        background-color: #3e8e41;
+      }
+      .result {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px #ccc;
+        margin-top: 20px;
+        font-size: 16px;
+        white-space: pre-wrap;
+      }
+
+      #copy-button {
+        background-color: #0048ff;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        }
+
+
+      /* Mobile-specific styles */
+      @media only screen and (max-width: 600px) {
+        form {
+          width: 80%;
+          margin: 0 auto;
+        }
+        label, select, input[type="submit"] {
+          width: 100%;
+        }
+        input[type="number"] {
+          font-size: 16px;
+        }
+      }
+    </style>
   </head>
   <body>
-    <h1>Ух тыж блин, а тут еще не готво</h1>
-    <h2><a href="/">Вернутся к расчету перевозки личных вещей</a></h2>
-    <img src="https://www.5.ua/media/pictures/original/229547.jpg?t=1631700718" alt="A cute cat">
+    <a href="/">Перейти к расчету перевозки личных вещей</a>
+    <h1>Расчет перевозки автомобилей</h1>
+    <form action="/car" method="post">
+      <label for="country">Выбрать страну:</label>
+      <select id="country" name="country">
+        {% for country in countries %}
+          <option value="{{ country }}" {% if request.form.country == country %}selected{% endif %} >{{ country }}</option>
+        {% endfor %}
+      </select>
+      <br><br>
+      <label for="city">Выбрать город:</label>
+      <select id="city" name="city">
+        {% for city in cities %}
+          <option value="{{ city }}" {% if request.form.city == city %}selected{% endif %} >{{ city }}</option>
+        {% endfor %}
+      </select>
+      <br><br>
+      <input type="submit" value="Рассчитать">
+    </form>
+    {% if shipping_cost %}
+      <div class="result">{{ shipping_cost }}</div>
+    {% endif %}
+     <button id="copy-button">Скопировать результат</button>
+        <script>
+        const copyButton = document.getElementById('copy-button');
+        const result = document.getElementsByClassName('result')[0];
+
+        copyButton.addEventListener('click', function() {
+          copyButton.innerHTML = "Скопировано!";
+          copyButton.style.backgroundColor = "blue";
+          copyButton.style.color = "white";
+
+          navigator.clipboard.writeText(result.textContent).then(function() {
+            console.log('Copying to clipboard was successful!');
+          }, function(err) {
+            console.error('Could not copy text: ', err);
+          });
+        });
+        </script>
   </body>
 </html>
