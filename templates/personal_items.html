@@ -3,27 +3,25 @@
   <head>
     <title>InterCargoCalculate</title>
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon-16x16.png') }}">
-     <style>
-             h1 {
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+      h1 {
         text-align: center;
       }
-
       a {
         display: block;
         text-align: center;
         margin-top: 20px;
       }
-
-            a {
+      a {
         font-size: 16px;
         color: #4CAF50;
         text-decoration: none;
       }
-
       a:hover {
         color: #3e8e41;
-}
-
+      }
       body {
         font-family: Arial, sans-serif;
         background-color: #f2f2f2;
@@ -46,7 +44,7 @@
       select, input[type="number"] {
         width: 100%;
         padding: 10px;
-        font-size: 16px;
+        font-size: 20px;
         border-radius: 5px;
         border: 1px solid #ccc;
       }
@@ -69,6 +67,30 @@
         margin-top: 20px;
         font-size: 16px;
         white-space: pre-wrap;
+      }
+
+      #copy-button {
+        background-color: #0048ff;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        }
+
+
+      /* Mobile-specific styles */
+      @media only screen and (max-width: 600px) {
+        form {
+          width: 80%;
+          margin: 0 auto;
+        }
+        label, select, input[type="submit"] {
+          width: 100%;
+        }
+        input[type="number"] {
+          font-size: 16px;
+        }
       }
     </style>
   </head>
@@ -97,5 +119,23 @@
     {% if shipping_cost %}
       <div class="result">{{ shipping_cost }}</div>
     {% endif %}
+     <button id="copy-button">Скопировать результат</button>
+        <script>
+        const copyButton = document.getElementById('copy-button');
+        const result = document.getElementsByClassName('result')[0];
+
+        copyButton.addEventListener('click', function() {
+          copyButton.innerHTML = "Скопировано!";
+          copyButton.style.backgroundColor = "blue";
+          copyButton.style.color = "white";
+
+          navigator.clipboard.writeText(result.textContent).then(function() {
+            console.log('Copying to clipboard was successful!');
+          }, function(err) {
+            console.error('Could not copy text: ', err);
+          });
+        });
+        </script>
+
   </body>
 </html>
