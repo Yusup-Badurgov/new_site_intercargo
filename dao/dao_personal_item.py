@@ -73,7 +73,7 @@ class PersonalItem:
 
             if trade_type == "export":
                 result_price = f'Перевозка {int(choice_cube)} м3 (вес до {int(choice_cube) * 120} кг) = {price}€\n' \
-                               f'Таможенное оформление в России = {direction.get("ЭКСПОРТ").get("ТО ЕС")}€.\n' \
+                               f'Таможенное оформление в России = {direction.get("ЭКСПОРТ").get("ТО РФ")}€.\n' \
                                f'Таможенное оформление в ЕС = {direction.get("ЭКСПОРТ").get("ТО ЕС")}€.\n' \
                                f'Итого {price + direction.get("ЭКСПОРТ").get("ТО РФ") + direction.get("ЭКСПОРТ").get("ТО ЕС")}€.\n' \
                                f'+Пошлины 30% от заявленной стоимости груза, но не менее чем 2-4€/кг'
@@ -94,7 +94,7 @@ class PersonalItem:
 
             if trade_type == "export":
                 result_price = f'Перевозка {int(choice_cube)} м3 (вес до {int(choice_cube) * 120} кг) = {price}€\n' \
-                               f'Таможенное оформление в России = {direction.get("ЭКСПОРТ").get("ТО ЕС")}€.\n' \
+                               f'Таможенное оформление в России = {direction.get("ЭКСПОРТ").get("ТО РФ")}€.\n' \
                                f'Таможенное оформление в ЕС = {direction.get("ЭКСПОРТ").get("ТО ЕС")}€.\n' \
                                f'Итого {price + direction.get("ЭКСПОРТ").get("ТО РФ") + direction.get("ЭКСПОРТ").get("ТО ЕС")}€.\n' \
                                f'+Пошлины 30% от заявленной стоимости груза, но не менее чем 2-4€/кг'

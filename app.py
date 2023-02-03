@@ -1,5 +1,9 @@
+import random
+
 from flask import Flask, render_template, request
-from implemented import dao_personal_item, dao_car
+from random import choice
+from implemented import dao_personal_item, dao_car, motivational_phrases
+
 
 application = Flask(__name__)
 
@@ -7,8 +11,10 @@ application = Flask(__name__)
 @application.route('/', methods=['GET', 'POST'])
 def personal_items():
     countries = dao_personal_item.get_all_country()
+    fraze = random.choice(motivational_phrases)
+
     if request.method == 'GET':
-        return render_template('personal_items.html', countries=countries)
+        return render_template('personal_items.html', countries=countries, fraze=fraze)
 
     elif request.method == 'POST':
 
@@ -19,7 +25,9 @@ def personal_items():
         else:
             shipping_cost = dao_personal_item.calculate(data[0], data[1], data[2])
 
-        return render_template('personal_items.html', countries=countries, shipping_cost=shipping_cost)
+        return render_template('personal_items.html', countries=countries,
+                               shipping_cost=shipping_cost,
+                               fraze=fraze)
 
 
 @application.route('/car', methods=['GET', 'POST'])
